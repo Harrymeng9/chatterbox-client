@@ -20,6 +20,7 @@ var App = {
     App.fetch(App.stopSpinner);
 
 
+
     //  var fun = Parse.readAll();
     //console.log(fun);
     // TODO: Make sure the app loads data from the API

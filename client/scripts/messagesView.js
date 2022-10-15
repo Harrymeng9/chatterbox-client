@@ -11,8 +11,10 @@ var MessagesView = {
     // when this view loads.
 
     // write the get methods and console it
+    //   MessagesView.handleClick();
 
-
+    MessagesView.$chats.on('click', '.username', MessagesView.handleClick);
+    Friends.toggleStatus(name);
   },
 
   render: function (roomName) {
@@ -25,12 +27,9 @@ var MessagesView = {
       if (room === roomName) {
         MessagesView.$chats.append(MessageView.render(current));
       }
-
     }
 
-
-
-
+    MessagesView.handleClick();
 
     //  MessagesView.$chats.append(MessageView.render(first));
 
@@ -49,6 +48,8 @@ var MessagesView = {
     MessageView.render(message);
     MessagesView.$chats.append(MessageView.render(message));
 
+    Friends.initialize();
+
     //MessagesView.$chats.prepend(MessageView.render(newMessage));
     // var _singleMessage = MessageView.render({username: message.username + ':', text: message.text});
   },
@@ -56,6 +57,18 @@ var MessagesView = {
   handleClick: function (event) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
-  }
 
+
+    var name = $(this).text();
+
+    Friends.toggleStatus(name);
+
+
+    console.log('sdsdsdsd')
+    // $('.username').click(function () {
+    //   var name = $(this).text();
+    //   console.log(name);
+    //   Friends.toggleStatus(name);
+    // });
+  },
 };

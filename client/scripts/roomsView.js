@@ -37,22 +37,18 @@ var RoomsView = {
 
     var first = keys[0];
 
-    Rooms.addRoom(first);
+    Rooms.add(first);
 
     for (var i = 0; i < keys.length; i++) {
-      Rooms.addRoom(keys[i]);
+      Rooms.add(keys[i]);
     }
-
 
   },
 
   renderRoom: function (roomname) {
     // TODO: Render out a single room.
 
-
-
     RoomsView.$rooms.append(roomname);
-
 
   },
 
@@ -63,27 +59,14 @@ var RoomsView = {
   handleClick: function (event) {
     // TODO: Handle the user clicking the "Add Room" button.
 
-
-
     $('#rooms button').click(function () {
       $('#chats').empty();
-
-
 
       var roomname = $('#rooms select option:selected').val();
       MessagesView.render(roomname);
 
-
-
-
     });
 
-
-
-
   }
-
-
-
 
 };

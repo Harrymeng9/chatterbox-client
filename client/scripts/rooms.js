@@ -10,7 +10,7 @@ var Rooms = {
 
   currentRoom: 'lobby',
 
-  addRoom: function (room) {
+  add: function (room) {
 
     var $newRoom = $(`<option value="${room}">${room}</option>`);
     RoomsView.$select.append($newRoom);
