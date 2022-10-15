@@ -8,37 +8,42 @@ var App = {
 
   username: 'anonymous',
 
-  initialize: function() {
+  initialize: function () {
     App.username = window.location.search.substr(10);
 
     FormView.initialize();
     RoomsView.initialize();
-    MessagesView.initialize();
+
 
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
+
+    //  var fun = Parse.readAll();
+    //console.log(fun);
     // TODO: Make sure the app loads data from the API
     // continually, instead of just once at the start.
   },
 
-  fetch: function(callback = ()=>{}) {
+  fetch: function (callback = () => { }) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
-
+      Messages.storage = data;
+      Rooms.storage = data;
+      MessagesView.initialize();
+      RoomsView.initialize();
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
     });
   },
 
-  startSpinner: function() {
+  startSpinner: function () {
     App.$spinner.show();
     FormView.setStatus(true);
   },
 
-  stopSpinner: function() {
+  stopSpinner: function () {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
   }
