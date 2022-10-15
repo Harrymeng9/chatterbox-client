@@ -58,13 +58,10 @@ var MessagesView = {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
 
-
     var name = $(this).text();
 
     Friends.toggleStatus(name);
 
-
-    console.log('sdsdsdsd')
     // $('.username').click(function () {
     //   var name = $(this).text();
     //   console.log(name);
