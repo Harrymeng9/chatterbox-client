@@ -2,6 +2,7 @@
 // It should initialize the other parts of the application
 // and begin making requests to the Parse API for data.
 
+//Solution
 var App = {
 
   $spinner: $('.spinner img'),
@@ -13,29 +14,28 @@ var App = {
 
     FormView.initialize();
     RoomsView.initialize();
-
+    MessagesView.initialize();
 
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
 
-
-
-    //  var fun = Parse.readAll();
-    //console.log(fun);
-    // TODO: Make sure the app loads data from the API
-    // continually, instead of just once at the start.
+    // Poll for new messages every 3 sec
+    setInterval(App.fetch, 3000);
   },
 
   fetch: function (callback = () => { }) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
-      Messages.storage = data;
-      Rooms.storage = data;
-      MessagesView.initialize();
-      RoomsView.initialize();
-      // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
+
+      // Only update if we have messages.
+      if (data && data.length) {
+        Rooms.update(data, RoomsView.render);
+        Messages.update(data, MessagesView.render);
+
+        callback();
+      }
+      return;
+
     });
   },
 
@@ -49,3 +49,46 @@ var App = {
     FormView.setStatus(false);
   }
 };
+
+// var App = {
+
+//   $spinner: $('.spinner img'),
+
+//   username: 'anonymous',
+
+//   initialize: function () {
+//     App.username = window.location.search.substr(10);
+
+//     FormView.initialize();
+//     RoomsView.initialize();
+
+//     // Fetch initial batch of messages
+//     App.startSpinner();
+//     App.fetch(App.stopSpinner);
+
+//     // TODO: Make sure the app loads data from the API
+//     // continually, instead of just once at the start.
+//   },
+
+//   fetch: function (callback = () => { }) {
+//     Parse.readAll((data) => {
+//       // examine the response from the server request:
+//       Messages.storage = data;
+//       Rooms.storage = data;
+//       MessagesView.initialize();
+//       RoomsView.initialize();
+//       // TODO: Use the data to update Messages and Rooms
+//       // and re-render the corresponding views.
+//     });
+//   },
+
+//   startSpinner: function () {
+//     App.$spinner.show();
+//     FormView.setStatus(true);
+//   },
+
+//   stopSpinner: function () {
+//     App.$spinner.fadeOut('fast');
+//     FormView.setStatus(false);
+//   }
+// };
